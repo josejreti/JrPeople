@@ -1,6 +1,8 @@
 package jreti.eti.br.jrpeople;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -37,8 +39,9 @@ public class ResponseActivity extends AppCompatActivity {
         this.et_sexo.setEnabled(false);
         this.et_estadocivil.setEnabled(false);
 
-        Intent intent = getIntent();
-        Pessoa pessoa = (Pessoa) intent.getSerializableExtra(MainActivity.CONSTPESSOA);
+        //Intent intent = getIntent();
+        //Pessoa pessoa = (Pessoa) intent.getSerializableExtra(MainActivity.CONSTPESSOA);
+        Pessoa pessoa = this.recuperarPessoa();
 
         this.et_nome.setText(pessoa.getNome());
         this.et_idade.setText(pessoa.getIdade());
@@ -47,6 +50,29 @@ public class ResponseActivity extends AppCompatActivity {
         this.et_rg.setText(pessoa.getRg());
         this.et_sexo.setText(pessoa.getSexo());
         this.et_estadocivil.setText(pessoa.getEstadocivil());
+    }
+
+    public Pessoa recuperarPessoa() {
+        Context context = getApplicationContext();
+        SharedPreferences sharedPref = context.getSharedPreferences(MainActivity.CONSTPESSOA, Context.MODE_PRIVATE);
+
+        String nome = sharedPref.getString(MainActivity.CONSTNOME, "Não Informado!");
+        String idade = sharedPref.getString(MainActivity.CONSTIDADE, "Não Informado!");
+        String telefone = sharedPref.getString(MainActivity.CONSTTELEFONE, "Não Informado!");
+        String cpf = sharedPref.getString(MainActivity.CONSTCPF, "Não Informado!");
+        String rg = sharedPref.getString(MainActivity.CONSTRG, "Não Informado!");
+        String sexo = sharedPref.getString(MainActivity.CONSTSEXO, "Não Informado!");
+        String estadocivil = sharedPref.getString(MainActivity.CONSTESTADOCIVIL, "Não Informado!");
+
+        Pessoa pessoa = new Pessoa();
+        pessoa.setNome(nome);
+        pessoa.setIdade(idade);
+        pessoa.setTelefone(telefone);
+        pessoa.setCpf(cpf);
+        pessoa.setRg(rg);
+        pessoa.setSexo(sexo);
+        pessoa.setEstadocivil(estadocivil);
+        return pessoa;
     }
 
     public void onClick(View v) {

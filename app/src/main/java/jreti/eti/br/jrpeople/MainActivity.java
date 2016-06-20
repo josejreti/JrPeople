@@ -2,6 +2,7 @@ package jreti.eti.br.jrpeople;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,6 +14,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static final String CONSTPESSOA = "pessoa";
+    public static final String CONSTNOME = "name";
+    public static final String CONSTIDADE = "age";
+    public static final String CONSTTELEFONE = "phone";
+    public static final String CONSTCPF = "cic";
+    public static final String CONSTRG = "id";
+    public static final String CONSTSEXO = "gender";
+    public static final String CONSTESTADOCIVIL = "maritalstatus";
 
     private EditText et_nome;
     private EditText et_idade;
@@ -76,15 +84,34 @@ public class MainActivity extends AppCompatActivity {
             pessoa.setSexo(sexo);
             pessoa.setEstadocivil(estadocivil);
 
+            if(this.gravarPessoa(pessoa)){
+                Intent intent = new Intent(this, ResponseActivity.class);
+                //     intent.putExtra(MainActivity.CONSTPESSOA, pessoa);
+                startActivity(intent);
+            }else {
+                Context context = getApplicationContext();
+                Toast.makeText(context, "Erro ao gravar a pessoa!", Toast.LENGTH_LONG).show();
+            }
 
-            Intent intent = new Intent(this, ResponseActivity.class);
-            intent.putExtra(MainActivity.CONSTPESSOA, pessoa);
-            startActivity(intent);
         } else {
             Context context = getApplicationContext();
             Toast.makeText(context, "Você deve preencher todos os campos!", Toast.LENGTH_LONG).show();
         }
 
+    }
+
+    public boolean gravarPessoa(Pessoa pessoa) {
+        Context context = getApplicationContext();
+        SharedPreferences sharedPref = context.getSharedPreferences(MainActivity.CONSTPESSOA, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(MainActivity.CONSTNOME, pessoa.getNome());
+        editor.putString(MainActivity.CONSTIDADE, pessoa.getIdade());
+        editor.putString(MainActivity.CONSTTELEFONE, pessoa.getTelefone());
+        editor.putString(MainActivity.CONSTCPF, pessoa.getCpf());
+        editor.putString(MainActivity.CONSTRG, pessoa.getRg());
+        editor.putString(MainActivity.CONSTSEXO, pessoa.getSexo());
+        editor.putString(MainActivity.CONSTESTADOCIVIL, pessoa.getEstadocivil());
+        return editor.commit();
     }
 
     public void onClear(View v) {
@@ -94,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
         this.et_cpf.setText("");
         this.et_rg.setText("");
         this.rb_sexo_masculino.setChecked(true);
+        this.rb_estadocivil_solteiro.setChecked(true);
         this.et_nome.setFocusable(true);
     }
 
