@@ -138,21 +138,82 @@
                 android:layout_below="@+id/rg_sexo"
                 android:text="Estado Civil" />
 
-            <EditText
-                android:id="@+id/et_estadocivil"
+            <RadioGroup
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:inputType="textCapWords|text" />
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true">
 
-            <Button
-                android:id="@+id/bt_enviar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:onClick="onClick"
-                android:text="Enviar" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Solteiro(a)"
+                    android:id="@+id/rb_solteiro"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:checked="true" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Casado(a)"
+                    android:id="@+id/rb_casado"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Divorciado(a)"
+                    android:id="@+id/rb_divorciado"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Viúvo(a)"
+                    android:id="@+id/rb_viuvo"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Separado(a)"
+                    android:id="@+id/rb_separado"
+                    android:checked="false" />
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Companheiro(a)"
+                    android:id="@+id/rb_companheiro"
+                    android:checked="false" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layoutDirection="rtl">
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Limpar"
+                    android:onClick="onClear"
+                    android:id="@+id/bt_limpar"
+                    android:layout_gravity="right" />
+
+                <Button
+                    android:id="@+id/bt_enviar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:onClick="onClick"
+                    android:text="Enviar" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>
